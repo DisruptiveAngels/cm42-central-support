@@ -1,3 +1,4 @@
+require 'enumerize'
 require 'transitions'
 require 'active_record/transitions'
 class Story < ActiveRecord::Base

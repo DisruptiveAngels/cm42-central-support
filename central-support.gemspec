@@ -15,24 +15,18 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/Codeminer-42/central-support"
   spec.license       = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
-
   spec.required_ruby_version = '>= 2.0'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.test_files = spec.files.grep(%r{^(test|spec|features)/})
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "activesupport", ">= 3.2"
   spec.add_runtime_dependency "activerecord", ">= 3.2"
+  spec.add_runtime_dependency 'enumerize'
+  spec.add_runtime_dependency 'transitions'
 
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency 'codeclimate-test-reporter'
@@ -49,10 +43,8 @@ Gem::Specification.new do |spec|
   # spec/support/rails_app/Gemfile.lock
   spec.add_development_dependency 'devise'
   spec.add_development_dependency 'friendly_id'
-  spec.add_development_dependency 'enumerize'
   spec.add_development_dependency 'foreigner'
   spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'transitions'
 
   # Debugging
   spec.add_development_dependency 'awesome_print'
