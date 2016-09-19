@@ -46,6 +46,25 @@ module Central
         def events
           self.class.state_machine.events_for(current_state)
         end
+
+        # Returns the CSS id of the column this story belongs in
+        def column
+          case state
+          when 'unscheduled'
+            '#chilly_bin'
+          when 'unstarted'
+            '#backlog'
+          when 'accepted'
+            if iteration_service
+              if iteration_service.current_iteration_number == iteration_service.iteration_number_for_date(accepted_at)
+                return '#in_progress'
+              end
+            end
+            '#done'
+          else
+            '#in_progress'
+          end
+        end
       end
     end
   end

@@ -34,6 +34,12 @@ FactoryGirl.define do
     end
   end
 
+  factory :note do |n|
+    n.note        'Test note'
+    n.association :story
+    n.association :user
+  end
+
   factory :membership do |m|
     m.association :project
     m.association :user

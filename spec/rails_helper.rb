@@ -4,6 +4,7 @@ require 'rails/all'
 require 'factory_girl'
 require 'factory_girl_rails'
 require 'rspec/rails'
+require 'shoulda/matchers'
 
 require 'support/rails_app/config/environment'
 

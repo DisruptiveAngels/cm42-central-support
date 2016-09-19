@@ -34,8 +34,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "factory_girl"
   spec.add_development_dependency "factory_girl_rails"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "rspec-rails"
+  spec.add_development_dependency "rspec-its"
+  spec.add_development_dependency "rspec-activemodel-mocks"
+  spec.add_development_dependency "shoulda-matchers"
   spec.add_development_dependency 'timecop'
 
   # These gems are required by the dummy app in spec/support/rails_app

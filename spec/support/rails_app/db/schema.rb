@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 20160919135959) do
   add_index "memberships", ["project_id"], name: "index_memberships_on_project_id", using: :btree
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
+  create_table "notes", force: true do |t|
+    t.text     "note"
+    t.integer  "user_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "user_name"
+  end
+
   create_table "ownerships", force: true do |t|
     t.integer  "team_id",                    null: false
     t.integer  "project_id",                 null: false
@@ -152,6 +161,8 @@ ActiveRecord::Schema.define(version: 20160919135959) do
 
   add_foreign_key "memberships", "projects", name: "memberships_project_id_fk", dependent: :delete
   add_foreign_key "memberships", "users", name: "memberships_user_id_fk", dependent: :delete
+
+  add_foreign_key "notes", "stories", name: "notes_story_id_fk", dependent: :delete
 
   add_foreign_key "ownerships", "projects", name: "ownerships_project_id_fk", dependent: :delete
   add_foreign_key "ownerships", "teams", name: "ownerships_team_id_fk", dependent: :delete

@@ -22,6 +22,18 @@ module Central
           validate :bug_chore_estimation
         end
 
+        # Returns true or false based on whether the story has been estimated.
+        def estimated?
+          !estimate.nil?
+        end
+        alias :estimated :estimated?
+
+        # Returns true if this story can have an estimate made against it
+        def estimable?
+          feature? && !estimated?
+        end
+        alias :estimable :estimable?
+
         def bug_chore_estimation
           if !ESTIMABLE_TYPES.include?(story_type) && estimated?
             errors.add(:estimate, :cant_estimate)
