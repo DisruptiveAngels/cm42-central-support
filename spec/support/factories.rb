@@ -1,0 +1,62 @@
+# frozen_string_literal: true
+FactoryGirl.define do
+
+  factory :user do |u|
+    u.sequence(:name) {|n| "User #{n}"}
+    u.sequence(:username) {|n| "username #{n}"}
+    u.sequence(:initials) {|n| "U#{n}"}
+    u.sequence(:email) {|n| "user#{n}@example.com"}
+    u.password 'password'
+    u.password_confirmation 'password'
+    u.locale 'en'
+    u.time_zone 'Brasilia'
+
+    trait :with_team do
+      after(:build) { |object| object.enrollments.create(team: create(:team), is_admin: false ) }
+    end
+
+    trait :with_team_and_is_admin do
+      after(:build) { |object| object.enrollments.create(team: create(:team), is_admin: true ) }
+    end
+  end
+
+  factory :project do |p|
+    p.name 'Test Project'
+    p.start_date { Time.current }
+  end
+
+  factory :story do |s|
+    s.title 'Test story'
+    s.association :requested_by, factory: :user
+
+    trait :with_project do
+      after(:build) { |object| object.project = create(:project, users: [object.requested_by]) }
+    end
+  end
+
+  factory :membership do |m|
+    m.association :project
+    m.association :user
+  end
+
+  factory :activity do |a|
+    a.association :project
+    a.association :user
+    action 'create'
+  end
+
+  factory :team do |t|
+    t.sequence(:name) {|n| "Team #{n}"}
+  end
+
+  factory :enrollment do |e|
+    e.association :team
+    e.association :user
+    is_admin false
+  end
+
+  factory :ownership do |o|
+    o.association :team
+    o.association :project
+  end
+end
