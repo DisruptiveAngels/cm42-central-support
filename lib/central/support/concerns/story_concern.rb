@@ -1,0 +1,7 @@
+require 'central/support/concerns/story_concern/attributes'
+require 'central/support/concerns/story_concern/associations'
+require 'central/support/concerns/story_concern/validations'
+require 'central/support/concerns/story_concern/transitions'
+require 'central/support/concerns/story_concern/scopes'
+require 'central/support/concerns/story_concern/callbacks'
+require 'central/support/concerns/story_concern/csv'

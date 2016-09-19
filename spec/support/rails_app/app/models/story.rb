@@ -2,8 +2,6 @@ require 'enumerize'
 require 'transitions'
 require 'active_record/transitions'
 class Story < ActiveRecord::Base
-  attr_accessor :documents_attributes_was
-
   belongs_to :project
   belongs_to :requested_by, class_name: 'User'
   belongs_to :owned_by, class_name: 'User'
