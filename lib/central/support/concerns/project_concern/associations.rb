@@ -9,7 +9,7 @@ module Central
           has_many :teams, through: :ownerships
 
           has_many :memberships, dependent: :destroy
-          has_many :users, -> { uniq }, through: :memberships
+          has_many :users, -> { distinct }, through: :memberships
 
           has_many :stories, dependent: :destroy do
             def with_dependencies
