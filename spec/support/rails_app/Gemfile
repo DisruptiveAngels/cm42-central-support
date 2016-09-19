@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+source 'https://rubygems.org'
+
+# this file is pretty much only used for adding migrations
+gem 'rails', "~> 4.2"
+
+gem 'central-support', path: '../../../'
+
+gem 'devise'
+gem 'sqlite3'
+gem 'friendly_id'
+gem 'enumerize'
+gem 'foreigner'
+gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
