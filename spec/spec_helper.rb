@@ -8,7 +8,7 @@ require 'awesome_print'
 # Coverage
 if ENV['TRAVIS']
   # TODO fetch the token
-  ENV['CODECLIMATE_REPO_TOKEN'] = ''
+  ENV['CODECLIMATE_REPO_TOKEN'] = '1bf37ecba56ffa95ff329cbbc3c3edc31c0ba9145baa929b8a56fff778b8c952'
   require 'codeclimate-test-reporter'
   CodeClimate::TestReporter.start
 else

@@ -4,6 +4,9 @@ Welcome to your new gem! In this directory, you'll find the files you need to be
 
 This is a library that moves away some of the logic from [Central](https://github.com/Codeminer42/cm42-central) so we can reuse in other projects. Particularly the Iteration calculation.
 
+[![Code Climate](https://codeclimate.com/repos/57e072af8a0f4603260024d5/badges/3ed30d50ad1a44162204/gpa.svg)](https://codeclimate.com/repos/57e072af8a0f4603260024d5/feed)
+[![Test Coverage](https://codeclimate.com/repos/57e072af8a0f4603260024d5/badges/3ed30d50ad1a44162204/coverage.svg)](https://codeclimate.com/repos/57e072af8a0f4603260024d5/coverage)
+
 ## Installation
 
 Add this line to your application's Gemfile:
