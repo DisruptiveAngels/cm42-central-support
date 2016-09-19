@@ -2,7 +2,7 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/central/support`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
+This is a library that moves away some of the logic from [Central](https://github.com/Codeminer42/cm42-central) so we can reuse in other projects. Particularly the Iteration calculation.
 
 ## Installation
 
@@ -22,7 +22,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This library expects a very specific set of pre-existing models (Team, Project, Story, User, Activity, Enrollment, Membership, and Ownership).
+
+They are all models that exist in Central and they must also follow a specific database schema.
+
+If you want to use this library in another application, refer to the `spec/support/rails_app/` so you know exactly how your new app should look like.
 
 ## Development
 
@@ -32,7 +36,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/central-support.
+Bug reports and pull requests are welcome on GitHub at https://github.com/Codeminer-42/central-support.
 
 
 ## License
