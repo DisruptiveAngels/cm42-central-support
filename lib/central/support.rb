@@ -1,3 +1,5 @@
+require 'csv'
+
 require "central/support/version"
 require "central/support/iteration_service"
 require "central/support/iteration"
@@ -11,6 +13,7 @@ require 'active_support/concern'
 require 'central/support/validators/belongs_to_project_validator'
 require 'central/support/validators/estimate_validator'
 require 'central/support/concerns/story_concern'
+require 'central/support/concerns/project_concern'
 
 # Ccompatibility mode for drop-in replacement into Central
 # TODO: must remove this after the migration from Central is complete

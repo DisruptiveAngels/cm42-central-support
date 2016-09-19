@@ -1,0 +1,5 @@
+require 'central/support/concerns/project_concern/attributes'
+require 'central/support/concerns/project_concern/associations'
+require 'central/support/concerns/project_concern/validations'
+require 'central/support/concerns/project_concern/scopes'
+require 'central/support/concerns/project_concern/csv'
