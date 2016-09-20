@@ -14,6 +14,7 @@ gem 'friendly_id'
 gem 'foreigner'
 
 group :test do
+  gem 'test-unit'
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rspec-activemodel-mocks'
@@ -27,4 +28,5 @@ end
 group :development, :test do
   gem 'awesome_print'
   gem 'pry-byebug'
+  gem 'listen'
 end
