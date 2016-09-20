@@ -3,13 +3,6 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in central-support.gemspec
 gemspec
 
-gem 'devise'
-gem 'sqlite3'
-gem 'friendly_id'
-gem 'enumerize'
-gem 'foreigner'
-gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
-
 group :test do
   gem 'rspec-rails'
   gem 'rspec-its'
@@ -20,3 +13,11 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'timecop'
 end
+
+# for some reason, this set of gems has to also be duplicated in the dummy app Gemfile
+gem 'devise'
+gem 'sqlite3'
+gem 'friendly_id'
+gem 'enumerize'
+gem 'foreigner'
+gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']

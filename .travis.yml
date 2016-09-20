@@ -4,5 +4,9 @@ cache: bundler
 rvm:
   - 2.3.1
 before_install: gem install bundler -v 1.12.5
+
+before_script:
+  - "cd spec/support/rails_app && bundle install"
+
 script:
   - "bundle exec rake spec"
