@@ -32,6 +32,10 @@ They are all models that exist in Central and they must also follow a specific d
 
 If you want to use this library in another application, refer to the `spec/support/rails_app/` so you know exactly how your new app should look like.
 
+The application that links against this library must add the main models manually: Team, User, Project, Story, Note, Activity, and the many-to-many relationships, Membership, Enrollment, and Ownership. Again, refer to the spec dummy app example on how to do that.
+
+This gem is not intended to have generators of any kind, just easily includable modules (Concerns), and helper libraries for the core of Central.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -45,5 +49,5 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/Codemi
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [LGPL License](https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
