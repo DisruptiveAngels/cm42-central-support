@@ -6,7 +6,9 @@ rvm:
 before_install: gem install bundler -v 1.12.5
 
 before_script:
-  - "cd spec/support/rails_app && bundle install"
+  - "cd spec/support/rails_app"
+  - "bundle install"
+  - "cd ../../.."
 
 script:
   - "bundle exec rake spec"

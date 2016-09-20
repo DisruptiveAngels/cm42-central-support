@@ -15,6 +15,7 @@ group :test do
 end
 
 # for some reason, this set of gems has to also be duplicated in the dummy app Gemfile
+gem 'rails'
 gem 'devise'
 gem 'sqlite3'
 gem 'friendly_id'
