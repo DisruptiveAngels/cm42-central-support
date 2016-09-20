@@ -19,6 +19,7 @@ require 'central/support/concerns/project_concern'
 require 'central/support/concerns/user_concern'
 require 'central/support/concerns/team_concern'
 require 'central/support/concerns/activity_concern'
+require 'central/support/concerns/integration_concern'
 
 # Ccompatibility mode for drop-in replacement into Central
 # TODO: must remove this after the migration from Central is complete

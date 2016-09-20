@@ -45,6 +45,12 @@ FactoryGirl.define do
     m.association :user
   end
 
+  factory :integration do |i|
+    i.association :project
+    i.kind 'mattermost'
+    i.data ( { channel: 'test-channel', bot_username: 'marvin', private_uri: 'http://foo.com' } )
+  end
+
   factory :activity do |a|
     a.association :project
     a.association :user

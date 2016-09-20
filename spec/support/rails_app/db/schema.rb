@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160919135959) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
+
   create_table "activities", force: true do |t|
     t.integer  "project_id",             null: false
     t.integer  "user_id",                null: false
@@ -38,6 +41,16 @@ ActiveRecord::Schema.define(version: 20160919135959) do
   end
 
   add_index "enrollments", ["team_id", "user_id"], name: "index_enrollments_on_team_id_and_user_id", unique: true, using: :btree
+
+  create_table "integrations", force: true do |t|
+    t.integer  "project_id"
+    t.string   "kind",       null: false
+    t.hstore   "data",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "integrations", ["data"], name: "index_integrations_on_data", using: :gin
 
   create_table "memberships", force: true do |t|
     t.integer  "project_id"
@@ -158,6 +171,8 @@ ActiveRecord::Schema.define(version: 20160919135959) do
   Foreigner.load
   add_foreign_key "enrollments", "teams", name: "enrollments_team_id_fk", dependent: :delete
   add_foreign_key "enrollments", "users", name: "enrollments_user_id_fk", dependent: :delete
+
+  add_foreign_key "integrations", "projects", name: "integrations_project_id_fk", dependent: :delete
 
   add_foreign_key "memberships", "projects", name: "memberships_project_id_fk", dependent: :delete
   add_foreign_key "memberships", "users", name: "memberships_user_id_fk", dependent: :delete

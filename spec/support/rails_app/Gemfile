@@ -9,7 +9,7 @@ gem 'rails'
 gem 'central-support', path: File.expand_path("../../../..", __FILE__)
 
 gem 'devise'
-gem 'sqlite3'
+gem 'pg'
 gem 'friendly_id'
 gem 'foreigner'
 
