@@ -4,7 +4,6 @@ describe Project, type: :model do
 
   subject { build :project }
 
-
   describe "validations" do
 
     describe "#name" do
