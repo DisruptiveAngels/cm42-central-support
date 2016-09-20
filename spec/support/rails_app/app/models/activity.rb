@@ -1,7 +1,6 @@
 class Activity < ActiveRecord::Base
-  serialize :subject_changes, Hash
-
-  belongs_to :project
-  belongs_to :user
-  belongs_to :subject, polymorphic: true
+  include Central::Support::ActivityConcern::Associations
+  include Central::Support::ActivityConcern::Validations
+  include Central::Support::ActivityConcern::Callbacks
+  include Central::Support::ActivityConcern::Scopes
 end
