@@ -4,7 +4,7 @@ require "uri"
 module Central
   module Support
     module MattermostHelper
-      def send_mattermost(integration)
+      def send_mattermost(integration, message)
         Central::Support::Mattermost.send(real_private_uri(integration.data['private_uri'] ),
                         integration.data['channel'],
                         integration.data['bot_username'],
