@@ -3,6 +3,23 @@ require "uri"
 
 module Central
   module Support
+    module MattermostHelper
+      def send_mattermost(integration)
+        Central::Support::Mattermost.send(real_private_uri(integration.data['private_uri'] ),
+                        integration.data['channel'],
+                        integration.data['bot_username'],
+                        message)
+      end
+
+      private def real_private_uri(private_uri)
+        if private_uri.starts_with? "INTEGRATION_URI"
+          ENV[private_uri]
+        else
+          private_uri
+        end
+      end
+    end
+
     class Mattermost
       def self.send(private_uri, project_channel, bot_username, message)
         Mattermost.new(private_uri, project_channel, bot_username).send(message)
