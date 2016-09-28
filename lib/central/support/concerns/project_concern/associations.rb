@@ -5,6 +5,8 @@ module Central
         extend ActiveSupport::Concern
 
         included do
+          has_many :integrations, dependent: :destroy
+
           has_many :ownerships
           has_many :teams, through: :ownerships
 
