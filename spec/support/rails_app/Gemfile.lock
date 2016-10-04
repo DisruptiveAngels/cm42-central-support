@@ -1,7 +1,7 @@
 PATH
   remote: /vagrant/codeminer42/central/support
   specs:
-    central-support (0.9.0)
+    central-support (0.9.1)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
       enumerize (~> 2.0)
