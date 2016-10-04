@@ -8,7 +8,7 @@ require 'factory_girl_rails'
 require 'rspec/rails'
 require 'shoulda/matchers'
 
-`cd spec/support/rails_app ; bin/rails db:drop db:create db:schema:load RAILS_ENV=test`
+system({"RAILS_ENV" => "test"}, "cd spec/support/rails_app ; bin/rails db:environment:set db:drop db:create db:schema:load")
 
 require 'support/rails_app/config/environment'
 

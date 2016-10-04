@@ -16,6 +16,7 @@ describe User, type: :model do
       expect(subject.errors[:initials].size).to eq(1)
     end
 
+    it { is_expected.to validate_inclusion_of(:role).in_array(User::ROLES) }
   end
 
   describe "#remove_story_association" do
