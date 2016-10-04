@@ -1,4 +1,4 @@
-class AddRoleFieldToUsers < ActiveRecord::Migration[5.0]
+class AddRoleFieldToUsers < ActiveRecord::Migration
   def change
     add_column :users, :role, :string, null: false, default: 'developer'
   end
