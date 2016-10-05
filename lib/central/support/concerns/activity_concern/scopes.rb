@@ -21,6 +21,7 @@ module Central
           return if activity.subject_changes.blank?
 
           self.subject_changes = {} if self.subject_changes.nil?
+          self.action = activity.action
 
           activity.subject_changes.keys.each do |key|
             if subject_changes[key]
