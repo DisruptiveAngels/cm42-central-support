@@ -44,7 +44,7 @@ describe Activity, type: :model do
     end
   end
 
-  context '#grouped_activities', focus: true do
+  context '#grouped_activities' do
     let(:user) { create :user }
     let(:project) { create :project, users: [user] }
     let!(:story1) { create :story, project: project, requested_by: user }

@@ -28,6 +28,9 @@ module Central
             else
               self.subject_changes[key] = activity.subject_changes[key]
             end
+            if self.subject_changes[key].first == self.subject_changes[key].last
+              self.subject_changes.delete(key)
+            end
           end
         end
 
