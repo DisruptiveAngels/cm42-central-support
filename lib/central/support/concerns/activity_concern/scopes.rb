@@ -58,7 +58,7 @@ module Central
                 while sub_list.size > 0
                   first_story.merge_story!(sub_list.shift)
                 end
-                new_activities << first_story
+                new_activities << first_story unless first_story.subject_changes.empty?
               end
             end
           end
