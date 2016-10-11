@@ -10,7 +10,9 @@ module Central
           validates :name, :username, :initials, presence: true
           validates :username, uniqueness: true
 
-          validates :role, inclusion: { in: ROLES }
+          extend Enumerize
+          extend ActiveModel::Naming
+          enumerize :role, in: ROLES
         end
       end
     end
