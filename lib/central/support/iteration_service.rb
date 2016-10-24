@@ -158,7 +158,9 @@ module Central
           current_iteration = Iteration.new(self, current_iteration_number, velocity_value)
           backlog_iteration = Iteration.new(self, current_iteration_number + 1, velocity_value)
           iterations = [current_iteration, backlog_iteration]
-          @backlog.each do |story|
+          @backlog.
+            select { |story| story.column != '#chilly_bin' }.
+            each do |story|
             if current_iteration.can_take_story?(story)
               current_iteration << story
             else

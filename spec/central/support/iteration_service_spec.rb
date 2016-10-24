@@ -188,6 +188,11 @@ describe Central::Support::IterationService do
       current_iteration[-3].deliver
       current_iteration[-3].reject
 
+      current_iteration[-4].start
+      current_iteration[-4].finish
+      current_iteration[-4].deliver
+      current_iteration[-4].accept
+
       details = service.current_iteration_details
       expect(details).to eq({"started"=>3, "finished"=>8, "delivered"=>0, "accepted"=>4, "rejected"=>1})
     end
