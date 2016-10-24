@@ -107,6 +107,7 @@ describe Central::Support::IterationService do
       Timecop.freeze(today)
       project.start_date = Time.zone.parse("2016-07-01")
       project.users << dummy
+      project.stories.destroy_all
       project.save
       story_types = ['feature', 'feature', 'bug', 'feature'] # 3 times more features than bugs, in average
 
