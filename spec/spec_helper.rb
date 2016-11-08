@@ -6,17 +6,8 @@ require 'pry-byebug' # binding.pry to debug!
 require 'awesome_print'
 
 # Coverage
-if ENV['TRAVIS']
-  # TODO fetch the token
-  ENV['CODECLIMATE_REPO_TOKEN'] = '1bf37ecba56ffa95ff329cbbc3c3edc31c0ba9145baa929b8a56fff778b8c952'
-  require 'codeclimate-test-reporter'
-  CodeClimate::TestReporter.start
-else
-  require 'simplecov'
-  SimpleCov.start do
-    add_filter '/spec/'
-  end
-end
+require 'simplecov'
+SimpleCov.start
 
 # This Gem
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)

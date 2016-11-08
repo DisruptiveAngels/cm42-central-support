@@ -15,3 +15,4 @@ before_script:
 
 script:
   - "bundle exec rake spec"
+  - "RAILS_ENV=test CODECLIMATE_REPO_TOKEN=1bf37ecba56ffa95ff329cbbc3c3edc31c0ba9145baa929b8a56fff778b8c952 bundle exec codeclimate-test-reporter"

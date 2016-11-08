@@ -20,7 +20,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'codeclimate-test-reporter', require: nil
+  gem 'codeclimate-test-reporter', "~> 1.0.0"
+  gem 'simplecov'
   gem 'timecop'
 end
 
