@@ -152,8 +152,25 @@ describe Central::Support::IterationService do
       expect(groups).to eq({1=>1, 2=>3, 3=>0, 4=>2, 5=>3, 6=>1, 7=>1, 8=>2, 9=>1})
     end
 
-    it '#velocity' do
-      expect(service.velocity).to eq(23)
+    describe "#velocity" do
+      it 'calculate velocity from scenario' do
+        expect(service.velocity).to eq(23)
+      end
+
+      it 'assures it bypasses zeroed iterations' do
+        allow(service).to receive(:group_by_velocity) { {1=>10, 2=>20, 3=>30, 4=>12, 5=>12, 6=>0, 7=>0, 8=>20, 9=>16} }
+        expect(service.velocity).to eq(16) # ( 12 + 20 + 16 ) / 3 = 16
+      end
+
+      it 'should not return less than 1' do
+        allow(service).to receive(:group_by_velocity) { {1=>0, 2=>0, 3=>0, 4=>0, 5=>0, 6=>0, 7=>0, 8=>0, 9=>0} }
+        expect(service.velocity).to eq(1)
+      end
+
+      it 'should return the default velocity' do
+        allow(service).to receive(:group_by_iteration) { {} }
+        expect(service.velocity).to eq(10)
+      end
     end
 
     it '#group_by_developer' do

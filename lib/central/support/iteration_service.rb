@@ -3,6 +3,7 @@ module Central
     class IterationService
       DAYS_IN_WEEK = (1.week / 1.day)
       VELOCITY_ITERATIONS = 3
+      DEFAULT_VELOCITY = 10
 
       attr_reader :project
 
@@ -120,15 +121,28 @@ module Central
       end
 
       def velocity(number_of_iterations = VELOCITY_ITERATIONS)
+        return DEFAULT_VELOCITY unless group_by_iteration.size > 0
         @velocity ||= {}
         @velocity[number_of_iterations] ||= begin
           number_of_iterations = group_by_iteration.size if number_of_iterations > group_by_iteration.size
           return 1 if number_of_iterations.zero?
 
-          sum = group_by_velocity.values.slice((-1 * number_of_iterations)..-1).sum
+          iterations = []
+          last_index = group_by_velocity.values.size - 1
+          while ( number_of_iterations > 0 && last_index >= 0)
+            if group_by_velocity.values[last_index] > 0
+              iterations << group_by_velocity.values[last_index]
+              number_of_iterations -= 1
+            end
+            last_index -= 1
+          end
 
-          velocity = (sum / number_of_iterations).floor
-          velocity < 1 ? 1 : velocity
+          velocity = 1
+          if iterations.size > 0
+            velocity = (iterations.sum / iterations.size).floor
+            velocity = velocity < 1 ? 1 : velocity
+          end
+          velocity
         end
       end
 
