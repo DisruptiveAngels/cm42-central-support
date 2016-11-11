@@ -3,6 +3,7 @@ module Central
     class IterationService
       DAYS_IN_WEEK = (1.week / 1.day)
       VELOCITY_ITERATIONS = 3
+      STD_DEV_ITERATIONS = 10
       DEFAULT_VELOCITY = 10
 
       attr_reader :project
@@ -194,8 +195,27 @@ module Central
         end
       end
 
-      def volatility(number_of_iterations = VELOCITY_ITERATIONS)
+      def volatility(number_of_iterations = STD_DEV_ITERATIONS)
         Statistics.volatility(group_by_velocity.values, number_of_iterations)
+      end
+
+      def standard_deviation(number_of_iterations = STD_DEV_ITERATIONS)
+        Statistics.standard_deviation(group_by_velocity.values, number_of_iterations)
+      end
+
+      # with calculate_worst = false calculates the final project date based on the average velocity for the past 3 iterations
+      # with calculate_worst = true add the standard deviation of the velocity for the past 10 iterations
+      def backlog_date(calculate_worst = false)
+        iterations            = backlog_iterations(velocity)
+        last_iteration_number = iterations.last.number
+        if calculate_worst
+          std_dev                     = Statistics.standard_deviation(group_by_velocity.values, STD_DEV_ITERATIONS)
+          ten_iterations_slice        = Statistics.slice_non_zero(group_by_velocity.values, STD_DEV_ITERATIONS)
+          mean_of_last_ten_iterations = Statistics.mean(ten_iterations_slice)
+          extra_iterations            = ( std_dev * iterations.size / mean_of_last_ten_iterations ).round
+          last_iteration_number      += extra_iterations
+        end
+        [ last_iteration_number, date_for_iteration_number(last_iteration_number) + project.iteration_length.days ]
       end
     end
   end

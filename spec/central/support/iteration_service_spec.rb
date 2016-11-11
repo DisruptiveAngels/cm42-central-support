@@ -237,7 +237,17 @@ describe Central::Support::IterationService do
       expect("%.4f" % volatility).to eq("0.3849")
 
       volatility = service.volatility # population (no variance correction)
-      expect("%.4f" % volatility).to eq("0.4051")
+      expect("%.4f" % volatility).to eq("0.3816")
+    end
+
+    it '#backlog_date' do
+      iteration_number, iteration_date = service.backlog_date
+      expect(iteration_number).to eq(11)
+      expect(iteration_date).to eq(Time.zone.parse("2016/09/07"))
+
+      iteration_number, iteration_date = service.backlog_date(true)
+      expect(iteration_number).to eq(12)
+      expect(iteration_date).to eq(Time.zone.parse("2016/09/14"))
     end
   end
 end
