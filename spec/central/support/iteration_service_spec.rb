@@ -216,28 +216,28 @@ describe Central::Support::IterationService do
     end
 
     it '#standard_deviation' do
-      standard_deviation = service.standard_deviation([])
+      standard_deviation = Central::Support::Statistics.standard_deviation([])
       expect(standard_deviation).to eq(0)
 
       # calculate for population
-      standard_deviation = service.standard_deviation(service.group_by_velocity.values)
+      standard_deviation = Central::Support::Statistics.standard_deviation(service.group_by_velocity.values)
       expect("%.4f" % standard_deviation).to eq("8.0890")
 
       # calculate for sample (N - 1) for correction
-      standard_deviation = service.standard_deviation(service.group_by_velocity.values, true)
-      expect("%.4f" % standard_deviation).to eq("8.5797")
+      standard_deviation = Central::Support::Statistics.standard_deviation(service.group_by_velocity.values, 8)
+      expect("%.4f" % standard_deviation).to eq("8.2278")
 
       # last 3 iterations
-      standard_deviation = service.standard_deviation(service.group_by_velocity.values.reverse.take(3))
-      expect("%.4f" % standard_deviation).to eq("7.7172")
+      standard_deviation = Central::Support::Statistics.standard_deviation(service.group_by_velocity.values, 3)
+      expect("%.4f" % standard_deviation).to eq("9.4516")
     end
 
     it '#volatility' do
-      volatility = service.volatility(9)
-      expect("%.4f" % volatility).to eq("0.4045")
+      volatility = service.volatility(8) # sample, 8 < 9
+      expect("%.4f" % volatility).to eq("0.3849")
 
-      volatility = service.volatility
-      expect("%.4f" % volatility).to eq("0.4109")
+      volatility = service.volatility # population (no variance correction)
+      expect("%.4f" % volatility).to eq("0.4051")
     end
   end
 end

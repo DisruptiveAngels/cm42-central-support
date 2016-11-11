@@ -8,6 +8,7 @@ require 'active_support/core_ext/numeric/time'
 require 'active_model'
 
 require "central/support/version"
+require "central/support/statistics"
 require "central/support/iteration_service"
 require "central/support/iteration"
 require "central/support/mattermost"

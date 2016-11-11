@@ -127,22 +127,14 @@ module Central
           number_of_iterations = group_by_iteration.size if number_of_iterations > group_by_iteration.size
           return 1 if number_of_iterations.zero?
 
-          iterations = []
-          last_index = group_by_velocity.values.size - 1
-          while ( number_of_iterations > 0 && last_index >= 0)
-            if group_by_velocity.values[last_index] > 0
-              iterations << group_by_velocity.values[last_index]
-              number_of_iterations -= 1
-            end
-            last_index -= 1
-          end
+          iterations = Statistics.slice_non_zero(group_by_velocity.values, number_of_iterations)
 
-          velocity = 1
           if iterations.size > 0
-            velocity = (iterations.sum / iterations.size).floor
-            velocity = velocity < 1 ? 1 : velocity
+            velocity = (Statistics.sum(iterations) / Statistics.total(iterations)).floor
+            velocity < 1 ? 1 : velocity
+          else
+            1
           end
-          velocity
         end
       end
 
@@ -202,27 +194,8 @@ module Central
         end
       end
 
-      def standard_deviation(groups = [], sample = false)
-        return 0 if groups.empty?
-        # algorithm: https://www.mathsisfun.com/data/standard-deviation-formulas.html
-        #
-        mean            = groups.sum.to_f / groups.size.to_f
-        differences_sqr = groups.map { |velocity| (velocity.to_f - mean) ** 2 }
-        count = sample ? (groups.size - 1) : groups.size
-        variance        = differences_sqr.sum / count.to_f
-
-        Math.sqrt(variance)
-      end
-
       def volatility(number_of_iterations = VELOCITY_ITERATIONS)
-        number_of_iterations = group_by_velocity.size if number_of_iterations > group_by_velocity.size
-
-        is_sample       = number_of_iterations != group_by_velocity.size
-        last_iterations = group_by_velocity.values.reverse.take(number_of_iterations)
-        std_dev         = standard_deviation(last_iterations, is_sample)
-        velocity_value  = velocity(number_of_iterations)
-
-        ( std_dev / velocity_value )
+        Statistics.volatility(group_by_velocity.values, number_of_iterations)
       end
     end
   end
