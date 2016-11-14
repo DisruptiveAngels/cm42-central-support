@@ -13,11 +13,11 @@ module Central
         :iteration_start_day, :iteration_start_day=,
         to: :project
 
-      def initialize(project, current_time: Time.current)
+      def initialize(project, since: nil, current_time: Time.current)
         @project = project
         @current_time = current_time
 
-        @stories = fetch_stories!
+        @stories = fetch_stories!(since)
 
         @accepted_stories = @stories.
           select { |story| story.column == '#done' }.
@@ -29,8 +29,10 @@ module Central
         @backlog = ( @stories - @accepted_stories ).sort_by(&:position)
       end
 
-      def fetch_stories!
-        project.stories.includes(:owned_by).to_a.map { |story| story.iteration_service = self; story }
+      def fetch_stories!(since = nil)
+        relation = project.stories.includes(:owned_by)
+        relation.where("accepted_at > ? or accepted_at is null") if since
+        relation.to_a.map { |story| story.iteration_service = self; story }
       end
 
       def iteration_start_date(date = nil)
