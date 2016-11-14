@@ -6,29 +6,31 @@ module Central
       STD_DEV_ITERATIONS = 10
       DEFAULT_VELOCITY = 10
 
-      attr_reader :project
+      attr_reader :project, :current_time
 
       delegate :start_date, :start_date=,
         :iteration_length, :iteration_length=,
         :iteration_start_day, :iteration_start_day=,
         to: :project
 
-      def initialize(project, since = nil)
+      def initialize(project, current_time: Time.current)
         @project = project
+        @current_time = current_time
 
-        relation = project.stories.includes(:owned_by)
-        relation = relation.where('accepted_at > ? or accepted_at is null', since) if since
-        @stories = relation.to_a
+        @stories = fetch_stories!
 
         @accepted_stories = @stories.
           select { |story| story.column == '#done' }.
-          select { |story| story.accepted_at < iteration_start_date(Time.current) }
+          select { |story| story.accepted_at < iteration_start_date(@current_time) }
 
         calculate_iterations!
         fix_owner!
 
-        @stories.each { |s| s.iteration_service = self }
-        @backlog = ( @stories - @accepted_stories.select { |s| s.column == '#done' } ).sort_by(&:position)
+        @backlog = ( @stories - @accepted_stories ).sort_by(&:position)
+      end
+
+      def fetch_stories!
+        project.stories.includes(:owned_by).to_a.map { |story| story.iteration_service = self; story }
       end
 
       def iteration_start_date(date = nil)
@@ -56,7 +58,7 @@ module Central
       end
 
       def current_iteration_number
-        iteration_number_for_date(Time.current)
+        iteration_number_for_date(@current_time)
       end
 
       def calculate_iterations!
