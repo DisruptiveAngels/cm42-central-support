@@ -6,7 +6,7 @@ module Central
       STD_DEV_ITERATIONS = 10
       DEFAULT_VELOCITY = 10
 
-      attr_reader :project, :current_time
+      attr_reader :project, :current_time, :backlog
 
       delegate :start_date, :start_date=,
         :iteration_length, :iteration_length=,
@@ -65,10 +65,8 @@ module Central
 
       def calculate_iterations!
         @accepted_stories.each do |record|
-          iteration_number            = iteration_number_for_date(record.accepted_at)
-          iteration_start_date        = date_for_iteration_number(iteration_number)
-          record.iteration_number     = iteration_number
-          record.iteration_start_date = iteration_start_date
+          record.iteration_number     = iteration_number_for_date(record.accepted_at)
+          record.iteration_start_date = date_for_iteration_number(record.iteration_number)
         end
       end
 

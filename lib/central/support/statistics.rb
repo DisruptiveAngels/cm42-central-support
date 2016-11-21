@@ -34,7 +34,7 @@ module Central
       end
 
       def self.sum(enumerable)
-        enumerable.reduce(:+)
+        enumerable.reduce(:+) || 0
       end
 
       def self.total(enumerable)
