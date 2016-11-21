@@ -214,8 +214,10 @@ module Central
           std_dev                     = Statistics.standard_deviation(group_by_velocity.values, STD_DEV_ITERATIONS)
           ten_iterations_slice        = Statistics.slice_non_zero(group_by_velocity.values, STD_DEV_ITERATIONS)
           mean_of_last_ten_iterations = Statistics.mean(ten_iterations_slice)
-          extra_iterations            = ( std_dev * iterations.size / mean_of_last_ten_iterations ).round
-          last_iteration_number      += extra_iterations
+          if std_dev > 0.0 && mean_of_last_ten_iterations > 0.0
+            extra_iterations            = ( std_dev * iterations.size / mean_of_last_ten_iterations ).round
+            last_iteration_number      += extra_iterations
+          end
         end
         [ last_iteration_number, date_for_iteration_number(last_iteration_number) + project.iteration_length.days ]
       end
