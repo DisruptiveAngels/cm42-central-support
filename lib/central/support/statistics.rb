@@ -3,6 +3,7 @@ module Central
     module Statistics
       def self.mean(enumerable)
         values = to_float(enumerable)
+        return 0.0 if total(values) == 0.0
         sum(values) / total(values)
       end
 
