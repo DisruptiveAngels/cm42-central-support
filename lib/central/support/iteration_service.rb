@@ -78,6 +78,28 @@ module Central
           each   { |record| record.owned_by = @dummy_user }
       end
 
+      def group_by_day(range = nil)
+        @group_by_day = {}
+        @group_by_day[range] ||= begin
+          accepted = @accepted_stories
+          accepted = @accepted_stories.select { |story| story.accepted_at >= range.first && story.accepted_at < range.last } if range
+          accepted.
+            sort_by { |story| story.accepted_at }.
+            group_by { |story| story.accepted_at }.
+            tap do |group|
+
+            last_key = nil
+            group.keys.each do |key|
+              group[key] = group[key].sum { |story| story.estimate }
+              unless last_key.nil?
+                group[key] += group[last_key]
+              end
+              last_key = key
+            end
+          end
+        end
+      end
+
       def group_by_iteration
         @group_by_iteration ||= @accepted_stories.
           group_by { |story| story.iteration_number }.
@@ -113,7 +135,7 @@ module Central
       end
 
       def group_by_bugs
-        @group_by_bugs ||=  @accepted_stories.
+        @group_by_bugs ||= @accepted_stories.
           group_by { |story| story.iteration_number }.
           reduce({}) do |group, iteration|
             group.merge(iteration.first => bugs_impact(iteration.last))

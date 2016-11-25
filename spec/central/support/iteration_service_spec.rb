@@ -142,6 +142,11 @@ describe Central::Support::IterationService do
                             9 => [0, 3, 3, 2, 8]})
     end
 
+    it '#group_by_day' do
+      groups = service.group_by_day
+      expect(groups.values).to eq([3, 5, 5, 10, 10, 18, 26, 26, 27, 27, 30, 38, 39, 47, 48, 51, 52, 60, 60, 63, 65, 66, 67, 72, 72, 77, 77, 77, 78, 78, 79, 84, 84, 89, 92, 93, 98, 106, 111, 116, 118, 126, 134, 134, 137, 145, 147, 152, 152, 160, 160, 162, 165, 165, 168, 171, 173, 181])
+    end
+
     it '#group_by_velocity' do
       groups = service.group_by_velocity
       expect(groups).to eq({1=>10, 2=>20, 3=>30, 4=>12, 5=>12, 6=>27, 7=>34, 8=>20, 9=>16})
