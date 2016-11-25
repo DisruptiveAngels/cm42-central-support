@@ -31,7 +31,7 @@ module Central
 
       def fetch_stories!(since = nil)
         relation = project.stories.includes(:owned_by)
-        relation.where("accepted_at > ? or accepted_at is null", since) if since
+        relation = relation.where("accepted_at > ? or accepted_at is null", since) if since
         relation.to_a.map { |story| story.iteration_service = self; story }
       end
 
