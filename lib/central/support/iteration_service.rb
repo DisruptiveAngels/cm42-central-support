@@ -83,7 +83,7 @@ module Central
         @group_by_day[range] ||= begin
           accepted = @accepted_stories
           accepted = @accepted_stories.select { |story| story.accepted_at >= range.first && story.accepted_at < range.last } if range
-          accepted = accepted.sort_by { |story| story.accepted_at }.group_by { |story| story.accepted_at }
+          accepted = accepted.sort_by { |story| story.accepted_at }.group_by { |story| story.accepted_at.beginning_of_day }
 
           last_key = nil
           accepted.keys.each do |key|
