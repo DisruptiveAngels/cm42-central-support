@@ -83,6 +83,7 @@ module Central
         @group_by_day[range] ||= begin
           accepted = @accepted_stories
           accepted = accepted.select  { |story| story.accepted_at >= range.first && story.accepted_at < range.last } if range
+          accepted += backlog_iterations.first.select { |story| story.accepted_at }
           accepted = accepted.sort_by { |story| story.accepted_at }.group_by { |story| story.accepted_at.to_date }
 
           last_key = nil
