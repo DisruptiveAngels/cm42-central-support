@@ -82,23 +82,21 @@ module Central
         @group_by_day = {}
         @group_by_day[range] ||= begin
           accepted = @accepted_stories
-          accepted = @accepted_stories.select { |story| story.accepted_at >= range.first && story.accepted_at < range.last } if range
-          accepted = accepted.sort_by { |story| story.accepted_at }.group_by { |story| story.accepted_at.beginning_of_day }
+          accepted = accepted.select  { |story| story.accepted_at >= range.first && story.accepted_at < range.last } if range
+          accepted = accepted.sort_by { |story| story.accepted_at }.group_by { |story| story.accepted_at.to_date }
 
           last_key = nil
           accepted.keys.each do |key|
-            accepted[key] = accepted[key].sum { |story| story.estimate }
-            unless last_key.nil?
-              accepted[key] += accepted[last_key]
-            end
+            accepted[key] = accepted[key].sum { |story| story.estimate || 0 }
+            accepted[key] += accepted[last_key] unless last_key.nil?
             last_key = key
           end
 
           {}.tap do |group|
-            next_date = Time.zone.parse(project.start_date.to_s)
+            next_date = project.start_date
             last_date = backlog_iterations.last.start_date + ( project.iteration_length * DAYS_IN_WEEK )
             while next_date < last_date
-              group.merge!(next_date => accepted.fetch(next_date, group[next_date - 1.day]))
+              group.merge!(next_date => accepted.fetch(next_date, group.fetch(next_date - 1.day, 0)))
               next_date += 1.day
             end
           end
