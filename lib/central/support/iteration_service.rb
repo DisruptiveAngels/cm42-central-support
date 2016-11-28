@@ -96,6 +96,13 @@ module Central
               end
               last_key = key
             end
+
+            last_date = backlog_iterations.last.start_date + ( project.iteration_length * DAYS_IN_WEEK )
+            next_date = group.keys.last + 1.day
+            while next_date <= last_date
+              group.merge!(next_date => 0)
+              next_date += 1.day
+            end
           end
         end
       end
