@@ -42,11 +42,13 @@ module Central
       end
 
       def payload(text)
-        {
+        payload = {
           username: @bot_username,
           channel: @project_channel,
           text: text
-        }.to_json
+        }
+        payload.except(:channel) if @project_channel.blank?
+        payload.to_json
       end
     end
   end
