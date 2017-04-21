@@ -45,7 +45,7 @@ module Central
         payload = {
           username: @bot_username,
           channel: @project_channel,
-          text: text
+          attachments: text
         }
         payload.except(:channel) if @project_channel.blank?
         payload.to_json
