@@ -45,7 +45,7 @@ module Central
         {
           username: @bot_username,
           channel: @project_channel,
-          text: text
+          attachments: text
         }.to_json
       end
     end
