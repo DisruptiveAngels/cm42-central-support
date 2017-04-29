@@ -13,10 +13,9 @@ module Central
 
       private def real_private_uri(private_uri)
         if private_uri.starts_with? "INTEGRATION_URI"
-          ENV[private_uri]
-        else
-          private_uri
+          return ENV[private_uri]
         end
+        private_uri
       end
     end
 
